@@ -6,6 +6,7 @@ import { ReportsModule } from './reports/reports.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { User } from './users/user.entity';
+import { Report } from './reports/report.entity';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { User } from './users/user.entity';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [User],
+      entities: [User, Report],
       // autoLoadEntities: true, // models will be loaded automatically
       synchronize: true, // your entities will be synced with the database(recommended: disable in prod)
     }),
