@@ -12,7 +12,10 @@ const cookieSession = require('cookie-session');
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres', // type of our database
       host: process.env.DATABASE_HOST,
@@ -23,6 +26,7 @@ const cookieSession = require('cookie-session');
       entities: [User, Report],
       // autoLoadEntities: true, // models will be loaded automatically
       synchronize: true, // your entities will be synced with the database(recommended: disable in prod)
+      dropSchema: process.env.NODE_ENV === 'test' ? true : false,
     }),
     UsersModule,
     ReportsModule,
